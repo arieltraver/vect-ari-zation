@@ -9,6 +9,11 @@ _start:
 	movups xmm0, [arr0] ;move first array
 	movups xmm1, [arr1]
 	mulps xmm0, xmm1
-	
+	movups [arr0], xmm0 ;store result in first array
+
+exit:	mov rax, 60
+	mov rdi, 0
+	syscall 
+		
 
 
