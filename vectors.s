@@ -6,8 +6,8 @@ section .data
 	zeros dw 0, 0, 0, 0
 section .text
 _start:
-	movups xmm0, arr0 ;move first array
-	movups xmm1, arr1
+	movups xmm0, [arr0] ;move first array
+	movups xmm1, [arr1]
 	mulps xmm0, xmm1
 	
 
