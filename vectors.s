@@ -1,27 +1,14 @@
-section .data
-    msg db "Hello world!", 0ah
-    msg2 db ""
-
-section .text
-    global _start
+global _start
 
 _start:
-    mov rsi, msg
-    mov rax, 1
-    mov rdi, 1
-    mov rdx, 13
-    syscall        ;NOTE: need to convert the decimal into the letter string to print
-    mov rbx, 16
-    mov rcx, 8
-    imul rbx, rcx ;stored in bx
-    mov rcx, rbx
-    mov rsi, rcx
-    mov [msg2], rbx
-    mov rsi, msg2
-    mov rax, 1
-    mov rdx, 1
-    mov rdx, 32
-    syscall
-    mov rax, 60
-    mov rdi, 0
-    syscall
+section .data
+	arr0: dword 1.1, 2.2, 3.3, 4.4
+	arr1: dword 5.5, 6.6, 7.7, 8.8
+	zeros: dword 0, 0, 0, 0
+section .text
+	movups xmm0, arr0 ;move first array
+	movups xmm1, arr1
+	mulps xmm0, xmm1
+	
+
+
