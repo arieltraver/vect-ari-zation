@@ -1,0 +1,2 @@
+nasm -f elf64 -o name.o name.s
+ld -o helloworld helloworld.o
