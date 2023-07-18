@@ -1,9 +1,9 @@
-global _dotProduct
+global dotProduct
 
 section .data
 
 section .text ;pointer to arrays in rsi and rdi, length stored in rdx, result stored in the address pointed to by rsi
-_dotProduct: 	pop rbp
+dotProduct: 	pop rbp
 		mov rbp, rsp ;new stack frame
 		mov r8, 8 ;for comparison
 		vzeroall ;empty the ymme registers.
