@@ -11,10 +11,14 @@ _dotProduct: 	pop rbp
 		vmovaps ymm1, zeros ;zero out these registers
 
 comp:
-		
 		cmp 256, rdx ;rdx stores remaining len of array
-		jle workPart ;working on a non-full-sized chunk, ending
-		sub rdx, 256
+		jge workChunk ;working on a non-full-sized chunk, ending
+		cmp 128, rdx
+		jge workPart
+		cmp 0, rdx
+		jg workBit
+		pop rbp
+		ret
 workChunk:
 		vmovaps ymm0, [rsi] ;move 256 unaligned bytes of first array
 		vmovaps ymm1, [rdi] ;heap address stored in rsi and rdi
@@ -22,13 +26,10 @@ workChunk:
 		vmovaps ymm0, [rsi]
 		add rdi, 256 ;next block
 		add rdi, 256
-		jmp =comp
-		
-		movups [arr0], xmm0 ;store result in first array
-break2:
-exit:		mov rax, 60
-		mov rdi, 0
-		syscall 
-		
+		sub rdx, 256
+		jmp =comp	
 
+workPart: ;length > 128 but less than 256. use partial move and exit.
+
+workBit: ;length > 0 but less than 128. use the xmme (lower halves) and exit
 
