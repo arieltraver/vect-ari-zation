@@ -9,7 +9,7 @@ dotProduct: 	push rbp
 		vzeroall ;empty the ymme registers.
 break0:
 comp:
-		cmp r8, rdx ;rdx stores remaining len of array
+		cmp rdx, r8 ;rdx stores remaining len of array
 		jge workChunk ;if we have >=8 dwords left, jump
 break2:
 		;cmp 0, rdx ;remaining dwords that dont fully fill ymme.?
@@ -17,10 +17,9 @@ break2:
 		pop rbp ;we are done here, close our stack frame.
 		ret
 workChunk:
-break3:
 		vmovaps ymm0, [rsi] ;move 8 dwords into registers.
 		vmovaps ymm1, [rdi] ;from the addresses stored in rsi and rdi
-		vmulps ymm0, ymm1 ;dot of this section
+break3:		vmulps ymm0, ymm1 ;dot of this section
 		vmovaps ymm0, [rsi] ;store product in the og mem location.
 		mov r9, rdx
 		shl r9, 5 ;32 bits per dword equals 2^5.
