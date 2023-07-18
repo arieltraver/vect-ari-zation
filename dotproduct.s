@@ -16,8 +16,8 @@ comp:
 		pop rbp ;we are done here, close our stack frame.
 		ret
 workChunk:
-break1:		vmovaps ymm0, [rsi] ;move 8 dwords into registers.
-break2:		vmovaps ymm1, [rdi] ;from the addresses stored in rsi and rdi
+break1:		vmovaps ymm0, [rdi] ;move 8 dwords into registers.
+break2:		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
 		vmulps ymm0, ymm1 ;dot of this section
 		vmovaps ymm0, [rsi] ;store product in the og mem location.
 		mov r9, rdx
@@ -31,7 +31,7 @@ workPart:
 		;shr rdx, 5 ;get number of bits left (multiply by 32)
 		;vmovsd ymm2, 1
 		;TODO: create a mask which selects remaining bits
-		;vmaskmovps ymm0, ymm2, [rsi]
-		;vmaskmovps ymm1, ymm2, [rdi]
+		;vmaskmovps ymm0, ymm2, [rdi]
+		;vmaskmovps ymm1, ymm2, [rsi]
 		;vmulps ymm0, ymm1
-		;vmaskmovps [rsi], ymm2, ymm0 
+		;vmaskmovps [rdi], ymm2, ymm0 
