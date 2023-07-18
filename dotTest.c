@@ -5,4 +5,6 @@ int main(int argc, char *argv[]){
 	float array0[] = {1.1, 2.2, 3.3, 4.4};
 	float array1[] = {2.0, 2.0, 2.0, 2.0};
 	dotProduct(array0, array1, 128);
+	printf("%f, %f, %f, %f\n", array0[0], array0[1], array0[2], array0[3]);
+	printf("%f, %f, %f, %f\n", array1[0], array1[1], array1[2], array1[3]);
 }

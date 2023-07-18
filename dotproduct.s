@@ -3,19 +3,21 @@ global dotProduct
 section .data
 
 section .text ;pointer to arrays in rsi and rdi, length stored in rdx, result stored in the address pointed to by rsi
-dotProduct: 	pop rbp
+dotProduct: 	push rbp
 		mov rbp, rsp ;new stack frame
 		mov r8, 8 ;for comparison
 		vzeroall ;empty the ymme registers.
-break1:
+break0:
 comp:
 		cmp r8, rdx ;rdx stores remaining len of array
 		jge workChunk ;if we have >=8 dwords left, jump
+break2:
 		;cmp 0, rdx ;remaining dwords that dont fully fill ymme.?
 		;jg workPart ;deal with partially filled register
 		pop rbp ;we are done here, close our stack frame.
 		ret
 workChunk:
+break3:
 		vmovaps ymm0, [rsi] ;move 8 dwords into registers.
 		vmovaps ymm1, [rdi] ;from the addresses stored in rsi and rdi
 		vmulps ymm0, ymm1 ;dot of this section
