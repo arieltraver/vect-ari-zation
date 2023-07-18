@@ -12,4 +12,6 @@ int main(int argc, char *argv[]){
 	dotProduct(array0, array1, 8);
 	printf("%f, %f, %f, %f\n", array0[0], array0[1], array0[2], array0[3]);
 	printf("%f, %f, %f, %f\n", array1[0], array1[1], array1[2], array1[3]);
+	free(array0);
+	free(array1);
 }

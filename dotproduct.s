@@ -16,7 +16,8 @@ comp:
 		pop rbp ;we are done here, close our stack frame.
 		ret
 workChunk:
-break1:		vmovaps ymm0, [rdi] ;move 8 dwords into registers.
+break1:		mov r10, [rdi] ;testing.
+test1:		vmovaps ymm0, [rdi] ;move 8 dwords into registers.
 break2:		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
 		vmulps ymm0, ymm1 ;dot of this section
 		vmovaps ymm0, [rsi] ;store product in the og mem location.
