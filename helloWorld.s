@@ -1,11 +1,11 @@
 ;just to make sure stuff can actually compile
 ;running this on a x86 ubuntu VM
 
-global _start
 
 section .text
+	global helloWorld
 
-_start:
+helloWorld:
 	mov rax, 1 ;write syscall id
 	mov rdi, 1 ;standard ou
 	mov rsi, msg
