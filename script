@@ -1,0 +1,2 @@
+nasm -f elf64 -o dotProduct.o dotproduct.s
+gcc -o dotTest dotTest.c dotProduct.o
