@@ -7,6 +7,7 @@ dotProduct: 	pop rbp
 		mov rbp, rsp ;new stack frame
 		mov r8, 8 ;for comparison
 		vzeroall ;empty the ymme registers.
+break1:
 comp:
 		cmp r8, rdx ;rdx stores remaining len of array
 		jge workChunk ;if we have >=8 dwords left, jump
