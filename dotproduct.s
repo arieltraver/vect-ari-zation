@@ -16,11 +16,10 @@ comp:
 		pop rbp ;we are done here, close our stack frame.
 		ret
 workChunk:
-break1:		mov r10, [rdi] ;testing.
-test1:		vmovups ymm0, [rdi] ;move 8 dwords into registers.
-break2:		vmovups ymm1, [rsi] ;from the addresses stored in rsi and rdi
-		vmulps ymm0, ymm1 ;dot of this section
-test2:		vmovups ymm0, [rdi] ;store product in the og mem location.
+test1:		vmovaps ymm0, [rdi] ;move 8 dwords into registers.
+break2:		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
+		vmulps ymm0, ymm1, ymm0 ;dot of this section
+test2:		vmovaps ymm0, [rdi] ;store product in the og mem location.
 		mov r9, rdx
 		shl r9, 5 ;32 bits per dword equals 2^5.
 		add rdi, r9 ;move the pointer along.
