@@ -15,11 +15,17 @@ comp:
 		;jg workPart ;deal with partially filled register
 		pop rbp ;we are done here, close our stack frame.
 		ret
-workChunk:
-test1:		vmovaps ymm0, [rdi] ;move 8 dwords into registers.
-break2:		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
-		vmulps ymm0, ymm1, ymm0 ;dot of this section
-test2:		vmovaps ymm0, [rdi] ;store product in the og mem location.
+
+multiply:	vmovaps ymm0, [rdi] ;move 8 dwords into registers.
+		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
+		vmulps ymm0, ymm1, ymm0 ;dot of this
+
+horizadd:
+testextract:	vextractf128 xmm4, ymm0, 1 ;get upper half into xmm4
+		vzeroupper ;not using this
+		phaddd xmm0, xmm4 ;
+		
+movepointers: 
 		mov r9, rdx
 		shl r9, 5 ;32 bits per dword equals 2^5.
 		add rdi, r9 ;move the pointer along.
@@ -27,11 +33,3 @@ test2:		vmovaps ymm0, [rdi] ;store product in the og mem location.
 		sub rdx, 8 ;subtract from the remaining array length..
 		jmp comp ;go see if we're done yet.
 
-workPart:
-		;shr rdx, 5 ;get number of bits left (multiply by 32)
-		;vmovsd ymm2, 1
-		;TODO: create a mask which selects remaining bits
-		;vmaskmovps ymm0, ymm2, [rdi]
-		;vmaskmovps ymm1, ymm2, [rsi]
-		;vmulps ymm0, ymm1
-		;vmaskmovps [rdi], ymm2, ymm0 
