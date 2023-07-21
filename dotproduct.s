@@ -26,10 +26,8 @@ horizadd:	vextractf128 xmm4, ymm0, 1 ;get upper half into xmm4
 		vzeroupper ;not using this
 		phaddd xmm0, xmm4;
 		phaddd xmm0, xmm0;
-		pextrd ecx, xmm0, 0
-		pextrd ebx, xmm0, 1
-		fadd eax, ecx
-		fadd eax, ebx ;save to running total
+		phaddd xmm0, xmm0; ;this effectively adds the first two
+		
 movepointers: 
 		mov r9, rdx
 		shl r9, 5 ;32 bits per dword equals 2^5.
