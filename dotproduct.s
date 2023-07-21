@@ -10,7 +10,7 @@ dotProduct: 	push rbp
 break0:
 comp:
 		cmp rdx, r8 ;rdx stores remaining len of array
-		jge workChunk ;if we have >=8 dwords left, jump
+		jge multiply ;if we have >=8 dwords left, jump
 		;cmp 0, rdx ;remaining dwords that dont fully fill ymme.?
 		;jg workPart ;deal with partially filled register
 		pop rbp ;we are done here, close our stack frame.
@@ -20,11 +20,10 @@ multiply:	vmovaps ymm0, [rdi] ;move 8 dwords into registers.
 		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
 		vmulps ymm0, ymm1, ymm0 ;dot of this
 
-horizadd:
-testextract:	vextractf128 xmm4, ymm0, 1 ;get upper half into xmm4
+horizadd:	vextractf128 xmm4, ymm0, 1 ;get upper half into xmm4
 		vzeroupper ;not using this
-		phaddd xmm0, xmm4 ;
-		
+		phaddd xmm0, xmm4;
+		phaddd xmm0, xmm0;
 movepointers: 
 		mov r9, rdx
 		shl r9, 5 ;32 bits per dword equals 2^5.
