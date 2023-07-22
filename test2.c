@@ -12,7 +12,7 @@ int main(int argc, char *argv[]){
 		array1[i] = 1.0;
 		printf("%f ",array0[i]);
 	}
-	printf("\n")
+	printf("\n");
 	for (int i = 0; i < 16; i++) {
 		printf("%f ",array1[i]);
 	}

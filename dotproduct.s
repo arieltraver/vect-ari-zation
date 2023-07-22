@@ -28,10 +28,7 @@ horizadd:
 		vshufps xmm3, xmm4, 0x1
 		haddps xmm3, xmm3
 		addps xmm0, xmm3
-		;addps xmm0, xmm0
-		;vshufps xmm6, xmm0, 0xC0
-		;addps xmm6, xmm0
-		
+		subps xmm4, xmm4
 movepointers: 
 		mov r9, rdx
 		shl r9, 5 ;32 bits per dword equals 2^5.
