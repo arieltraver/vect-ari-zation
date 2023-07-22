@@ -10,19 +10,19 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i < 8; i++){
 		array0[i] = 1.1 * i + 1;
 		array1[i] = 1.0;
+		printf("%f ,", array0[i]);
 	}
+	printf("\n");
+	printf("%f\n",dotProduct(array0, array1, 8));
 	
 	float* array2 = (float*) aligned_alloc(32, 8 * sizeof(float));
 	float* array3 = (float*) aligned_alloc(32, 8 * sizeof(float));
 	for (int i = 0; i < 8; i++){
 		array2[i] = 1.1 * i;
-		array3[i] = 2.0;
+		array3[i] = 1.0;
+		printf("%f , ", array2[i]);
 	}
-	printf("%f, %f, %f, %f\n", array0[0], array0[1], array0[2], array0[3]);
-	printf("%f, %f, %f, %f\n", array1[0], array1[1], array1[2], array1[3]);
-	printf("%f\n",dotProduct(array0, array1, 8));
-	printf("%f, %f, %f, %f\n", array2[0], array2[1], array2[2], array2[3]);
-	printf("%f, %f, %f, %f\n", array3[0], array3[1], array3[2], array3[3]);
+	printf("\n");
 	printf("%f\n",dotProduct(array2, array3, 8));
 
 	free(array0);
