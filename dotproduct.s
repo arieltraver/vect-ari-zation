@@ -4,7 +4,6 @@ section .data
 
 section .text ;pointer to arrays in rsi and rdi, length stored in rdx, result stored in the address pointed to by rsi
 dotProduct: 	push rbp
-		push rbx
 		mov rbp, rsp ;new stack frame
 		mov r8, 8 ;for comparison
 		vzeroall ;empty the ymme registers.
@@ -14,7 +13,7 @@ comp:
 		jge multiply ;if we have >=8 dwords left, jump
 		;cmp 0, rdx ;remaining dwords that dont fully fill ymme.?
 		;jg workPart ;deal with partially filled register
-		pop rbx ;return this callee-saved register
+		pextrd eax, xmm5, 0
 		pop rbp ;we are done here, close our stack frame.
 		ret
 
@@ -24,9 +23,11 @@ multiply:	vmovaps ymm0, [rdi] ;move 8 dwords into registers.
 
 horizadd:	vextractf128 xmm4, ymm0, 1 ;get upper half into xmm4
 		vzeroupper ;not using this
-		phaddd xmm0, xmm4;
-		phaddd xmm0, xmm0;
-		phaddd xmm0, xmm0; ;this effectively adds the first two
+		addps xmm0, xmm4;
+		addps xmm0, xmm0;
+		vshufps xmm1, xmm0, 0x1b
+		addps xmm1, xmm0
+		addps xmm5, xmm1 ;running total stored in first byte here
 		
 movepointers: 
 		mov r9, rdx
