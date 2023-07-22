@@ -8,8 +8,8 @@ int main(int argc, char *argv[]){
 	printf("%ld\n", sizeof(float));
 	float* array1 = (float*) aligned_alloc(32, 8 * sizeof(float));
 	for (int i = 0; i < 8; i++){
-		array0[i] = 1.1 * i;
-		array1[i] = 2.0;
+		array0[i] = 1.1 * i + 1;
+		array1[i] = 1.0;
 	}
 	printf("%f, %f, %f, %f\n", array0[0], array0[1], array0[2], array0[3]);
 	printf("%f, %f, %f, %f\n", array1[0], array1[1], array1[2], array1[3]);
