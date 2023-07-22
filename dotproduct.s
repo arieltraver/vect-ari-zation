@@ -21,8 +21,8 @@ multiply:	vmovaps ymm3, [rdi] ;move 8 dwords into registers.
 		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
 		vmulps ymm3, ymm1, ymm3 ;dot of this
 
-horizadd:	;vextractf128 xmm0, ymm3, 0 ;get upper half
-		haddps xmm3, xmm0
+horizadd:	
+		haddps xmm3, xmm4
 		haddps xmm3, xmm3
 		movaps xmm4, xmm3
 		vshufps xmm3, xmm4, 0x1
