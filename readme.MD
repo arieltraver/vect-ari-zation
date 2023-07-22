@@ -1,6 +1,9 @@
 # Vect-Ari-zation
 ## Assembly exercise
 The point of this project is to work directly with some of the AVX instructions in order to better understand how vectoriazation is happening at the instruction level.
+
+This project is written with x86-64 assembly for Linux on Intel. To test the executables, you may wish to clone this repo on a VM matching these specs. I used an EC2 instance running Ubuntu.
+
 References
 * [summation](https://en.algorithmica.org/hpc/simd/reduction/)
 * [general assembly](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
