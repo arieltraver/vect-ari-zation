@@ -1,4 +1,5 @@
 global dotProduct
+;SO when you are working with floating points, the return value goes in xmm0
 
 section .data
 
@@ -13,21 +14,19 @@ comp:
 		jge multiply ;if we have >=8 dwords left, jump
 		;cmp 0, rdx ;remaining dwords that dont fully fill ymme.?
 		;jg workPart ;deal with partially filled register
-		pextrd eax, xmm5, 0
 		pop rbp ;we are done here, close our stack frame.
 		ret
 
-multiply:	vmovaps ymm0, [rdi] ;move 8 dwords into registers.
+multiply:	vmovaps ymm3, [rdi] ;move 8 dwords into registers.
 		vmovaps ymm1, [rsi] ;from the addresses stored in rsi and rdi
-		vmulps ymm0, ymm1, ymm0 ;dot of this
+		vmulps ymm3, ymm1, ymm3 ;dot of this
 
-horizadd:	vextractf128 xmm4, ymm0, 1 ;get upper half into xmm4
-		vzeroupper ;not using this
-		addps xmm0, xmm4;
-		addps xmm0, xmm0;
-		vshufps xmm1, xmm0, 0x1b
-		addps xmm1, xmm0
-		addps xmm5, xmm1 ;running total stored in first byte here
+horizadd:	vextractf128 xmm0, ymm3, 1 ;get upper half into xmm4
+		addps xmm0, xmm3;
+		vshufps xmm0, xmm1, 0x1
+		;addps xmm0, xmm0
+		;vshufps xmm6, xmm0, 0xC0
+		;addps xmm6, xmm0
 		
 movepointers: 
 		mov r9, rdx
