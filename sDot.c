@@ -29,14 +29,32 @@ int main(int argc, char *argv[]){
 		printf("i is %d\n", i); 
 		printf("%f\n",dotProduct(array0+i, array1+i));
 	}*/
+	void* argsArr = malloc(2 * sizeof(void*))
+	for(int i = 0; i < 2; i ++) {
+		struct args *Args1 = (struct args *)malloc(sizeof(struct args));
+		Args1->arr0 = array0 + i;
+		Args1->arr1 = array1 + i;
+		argsArr[i] = (void *)Args1;
+	}
 
-	struct args *Args1 = (struct args *)malloc(sizeof(struct args));
-    	Args1->arr0 = array0;
-    	Args1->arr1 = array1;
+	pthread_t* chunks = malloc(2 * sizeof(pthread_t))
+	for (int i = 0; i < 2; i++) {
+		pthread_t chunk1;
+		chunks[i] = chunk1;
+	}
+	for (int i = 0; i < 2; i++) {
+		pthread_create(&chunks[i], NULL, oneChunk, argsArr[i])
+	}
 
+	for (int i=0; i < 2; i++) {
+		pthread_join(chunks[i], NULL);
+	}
+	/*
 	pthread_t chunk1;
 	pthread_create(&chunk1, NULL, oneChunk, (void *)Args1);
-	pthread_join(chunk1, NULL);
+	pthread_join(chunk1, NULL);*/
+	free(chunks);
+	free(argsArr);
 	free(array0);
 	free(array1);
 }
