@@ -25,18 +25,18 @@ int main(int argc, char *argv[]){
 		printf("%f ,", array0[i]);
 	}
 	printf("\n");
-	for (int i= 0; i < 16; i+=8){
+	/* for (int i= 0; i < 16; i+=8){
 		printf("i is %d\n", i); 
 		printf("%f\n",dotProduct(array0+i, array1+i));
-	}
+	}*/
 
 	struct args *Args1 = (struct args *)malloc(sizeof(struct args));
     	Args1->arr0 = array0;
     	Args1->arr1 = array1;
 
 	pthread_t chunk1;
-	pthread_create(&chunk1, NULL, oneChunk, (void *)Args1)
-	pthread_join(chunk1, NULL)	
+	pthread_create(&chunk1, NULL, oneChunk, (void *)Args1);
+	pthread_join(chunk1, NULL);
 	free(array0);
 	free(array1);
 }
