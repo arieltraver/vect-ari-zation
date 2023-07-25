@@ -26,11 +26,11 @@ horizadd:	vextractf128 xmm4, ymm3, 1
 		movaps xmm4, xmm3
 		vshufps xmm3, xmm4, 0x1
 		haddps xmm3, xmm3
-		addps xmm0, xmm3
-		subps xmm4, xmm4
+test2:		addps xmm0, xmm3
+		vmovaps xmm4, xmm7 ;zero
 movepointers: 
 		sub rdx, 8 ;subtract from the remaining array length.
-		add rdi, 4 ;move the pointer along 4 bytes
-		add rsi, 4 ;move the other pointer along 4 bytes
+		add rdi, 32 ;move the pointer along
+		add rsi, 32 ;move the other pointer along
 test0:		jmp comp ;go see if we're done yet.
 exit:
