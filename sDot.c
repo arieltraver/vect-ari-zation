@@ -39,16 +39,13 @@ int main(int argc, char *argv[]){
 		Args1->resultIndex = resultsArr + i;
 		argsArr[i] = Args1;
 	}
-	pthread_t* chunks = malloc(3 * sizeof(pthread_t));
-	for (int i = 0; i < 2; i++) {
-		pthread_t chunk1;
-		chunks[i] = chunk1;
-	}
+	pthread_t* chunks = malloc(2 * sizeof(pthread_t));
 	for (int i = 0; i < 2; i++) {
 		pthread_create(&chunks[i], NULL, oneChunk, (void*)argsArr[i]);
 	}
 
 	for (int i=0; i < 2; i++) {
+		printf("loopin\n");
 		pthread_join(chunks[i], NULL);
 	}
 	float sum = 0;
