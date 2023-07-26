@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
 	float* array0 = (float*) aligned_alloc(32, 16 * sizeof(float));
 	printf("%ld\n", sizeof(float));
 	float* array1 = (float*) aligned_alloc(32, 16 * sizeof(float));
-	float* resultsArr = (float*) malloc(2 * sizeOf(float))
+	float* resultsArr = (float*) malloc(2 * sizeof(float));
 	for (int i = 0; i < 16; i++){
 		array0[i] = 1.1 * i;
 		array1[i] = 1.0;
@@ -31,21 +31,21 @@ int main(int argc, char *argv[]){
 		printf("i is %d\n", i); 
 		printf("%f\n",dotProduct(array0+i, array1+i));
 	}*/
-	void* argsArr = malloc(2 * sizeof(void*))
+	struct args* argsArr = malloc(2 * sizeof(struct args*));
 	for(int i = 0; i < 2; i ++) {
 		struct args *Args1 = (struct args *)malloc(sizeof(struct args));
 		Args1->arr0 = array0 + i;
 		Args1->arr1 = array1 + i;
-		Args1->resultsIndex = resultsArr + i;
-		argsArr[i] = (void *)Args1;
+		Args1->resultIndex = resultsArr + i;
+		argsArr[i] = &Args1;
 	}
-	pthread_t* chunks = malloc(2 * sizeof(pthread_t))
+	pthread_t* chunks = malloc(3 * sizeof(pthread_t));
 	for (int i = 0; i < 2; i++) {
 		pthread_t chunk1;
 		chunks[i] = chunk1;
 	}
 	for (int i = 0; i < 2; i++) {
-		pthread_create(&chunks[i], NULL, oneChunk, argsArr[i])
+		pthread_create(&chunks[i], NULL, oneChunk, (void*)argsArr[i]);
 	}
 
 	for (int i=0; i < 2; i++) {
@@ -53,13 +53,12 @@ int main(int argc, char *argv[]){
 	}
 	float sum = 0;
 	for (int i=0; i < 2; i++) {
-		sum += resultsArr[i]
+		sum += resultsArr[i];
 	}
 	printf("%f\n", sum);
-	/*
-	pthread_t chunk1;
-	pthread_create(&chunk1, NULL, oneChunk, (void *)Args1);
-	pthread_join(chunk1, NULL);*/
+	for (int i=0; i < 2; i++) {
+		free(argsArr[i]);
+	}
 	free(chunks);
 	free(argsArr);
 	free(array0);
