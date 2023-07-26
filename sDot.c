@@ -56,12 +56,9 @@ int main(int argc, char *argv[]){
 		sum += resultsArr[i];
 	}
 	printf("%f\n", sum);
-	for (int i=0; i < 2; i++) {
-		free(argsArr[i]);
-	}
 	free(chunks);
-	free(argsArr);
 	free(array0);
 	free(array1);
 	free(resultsArr);
+	free(argsArr);
 }
