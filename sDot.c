@@ -31,13 +31,13 @@ int main(int argc, char *argv[]){
 		printf("i is %d\n", i); 
 		printf("%f\n",dotProduct(array0+i, array1+i));
 	}*/
-	struct args* argsArr = malloc(2 * sizeof(struct args*));
+	struct args** argsArr = malloc(2 * sizeof(struct args*));
 	for(int i = 0; i < 2; i ++) {
 		struct args *Args1 = (struct args *)malloc(sizeof(struct args));
 		Args1->arr0 = array0 + i;
 		Args1->arr1 = array1 + i;
 		Args1->resultIndex = resultsArr + i;
-		argsArr[i] = &Args1;
+		argsArr[i] = Args1;
 	}
 	pthread_t* chunks = malloc(3 * sizeof(pthread_t));
 	for (int i = 0; i < 2; i++) {
